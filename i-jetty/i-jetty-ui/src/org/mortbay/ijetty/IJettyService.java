@@ -255,13 +255,17 @@ public class IJettyService extends Service
 
                         CharSequence text = getText(R.string.manage_jetty);
 
-                        Notification notification = new Notification(R.drawable.ijetty_stat, 
-                                text, 
-                                System.currentTimeMillis());
-
-                        notification.setLatestEventInfo(IJettyService.this, getText(R.string.app_name),
-                                text, contentIntent);
-
+                                
+                        Notification.Builder builder=new Notification.Builder(getBaseContext());
+                        builder.setAutoCancel(true)
+                            .setContentTitle(getText(R.string.app_name))
+                            .setContentText(text)
+                            .setContentIntent(contentIntent)
+                            .setSmallIcon(R.drawable.ijetty_stat)
+                            .setWhen(System.currentTimeMillis())
+                            .setOngoing(true);
+                        Notification notification=builder.build();
+                        
                         mNM.notify(R.string.jetty_started, notification);
                         
                         Intent startIntent = new Intent(IJetty.__START_ACTION);
